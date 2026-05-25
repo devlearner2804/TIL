@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>웹 페이지 만들기 수행평가</title>
+<style>
+    /* 화면 부드럽게 스크롤 이동 */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* 전체 배경은 흰색, 글자는 검은색 기본 깔끔한 설정 */
+    body {
+        background-color: white;
+        font-family: "맑은 고딕", sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 각 페이지 구역 스타일 (가로 850px 인쇄 규격 설정) */
+    .page-container {
+        width: 850px;
+        margin: 30px auto;
+        padding: 20px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+
+    /* =================================================================
+       [조건 반영] HEADER 영역 (흰색/검정색 금지 -> 차분한 회색 임의 지정)
+       ================================================================= */
+    header {
+        background-color: #555555; /* 감점 피하기 위한 임의 배경색 (짙은 회색) */
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .menu-bar {
+        list-style: none; /* 리스트 구현 */
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .menu-bar .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        margin-right: 50px;
+    }
+
+    .menu-bar li {
+        margin-right: 40px;
+    }
+
+    .menu-bar a {
+        background-color: #666666; /* 메뉴 버튼 배경색 */
+        color: #eeeeee; /* 메뉴 글자색 */
+        text-decoration: none;
+        padding: 6px 12px;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+
+    /* [조건 반영] 마우스 오버 시 메뉴 색상 변경 */
+    .menu-bar a:hover {
+        background-color: #888888; 
+        color: white; 
+    }
+
+    /* =================================================================
+       1페이지 [메인 페이지] 스타일
+       ================================================================= */
+    .top-box {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    /* [조건 반영] 이미지 자체에 5px 이상 테두리, 3px 3px 이상 그림자, CSS3 박스모델 직접 적용 */
+    .my-photo-box {
+        width: 140px;                 /* 가로 크기 지정 */
+        height: 180px;                /* 세로 크기 지정 */
+        border: 5px solid black;      /* [조건] 5px 이상의 테두리 */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4); /* [조건] 3px, 3px 이상의 그림자 */
+        box-sizing: border-box;       /* [조건] CSS3의 box 모델 적용 */
+        object-fit: cover;            /* 사진 비율 깨짐 방지 */
+    }
+
+    /* 그림판 문서 형태와 동일한 검은색 1px 테두리 기본 상자들 */
+    .intro-area, .career-area, .tech-desc-box {
+        border: 1px solid black;
+        padding: 15px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    .page-name-title {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 20px;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+    }
+
+    /* =================================================================
+       2페이지 [프로젝트 목록] 스타일
+       ================================================================= */
+    .project-item {
+        border: 1px solid black;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    /* [조건 반영] 프로젝트 이름은 <h3> 태그를 쓰고 글자색 임의 지정 (짙은 회색) */
+    .project-item h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #444444; /* 검은색 감점을 피하기 위한 임의 색상 */
+        font-size: 18px;
+    }
+
+    /* [조건 반영] 프로젝트 실행 화면 캡처 박스 공간 */
+    .project-capture {
+        width: 100%;
+        height: 200px;
+        border: 1px dashed #777;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    /* =================================================================
+       3페이지 [기술 목록] 스타일 및 필수 애니메이션 효과
+       ================================================================= */
+    
+    /* [조건 반영] 글자색이 파란색 -> 초록색 -> 빨간색으로 계속 변하는 애니메이션 */
+    @keyframes tech-color-change {
+        0% { color: blue; }
+        33% { color: green; }
+        66% { color: red; }
+        100% { color: blue; }
+    }
+
+    .ani-tech-name {
+        animation: tech-color-change 4s infinite;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* =================================================================
+       [조건 반영] FOOTER 영역 (흰색/검정색 감점 방지용 -> 회청색 임의 지정)
+       ================================================================= */
+    footer {
+        background-color: #475569; /* 감점 피하기 위한 임의 배경색 */
+        color: #f1f5f9; /* 임의 지정 text 색상 */
+        text-align: center;
+        padding: 15px;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+    <!-- =================================================================
+         [1페이지] 메인 페이지 구역 (id="main-page")
+         ================================================================= -->
+    <div id="main-page" class="page-container">
+        <header>
+            <ul class="menu-bar">
+                <div class="logo">LOGO</div>
+                <li><a href="#main-page">메인 페이지</a></li>
+                <li><a href="#project-page">프로젝트 목록</a></li>
+                <li><a href="#tech-page">기술 목록</a></li>
+            </ul>
+        </header>
+
+        <section>
+            <h2 class="page-name-title">현재 페이지: 메인 페이지</h2>
+
+            <div class="top-box">
+                <!-- [조건 만족] 증사.jpg 단독 매칭 및 테두리/그림자/박스모델 완벽 반영 -->
+                <img src="./증사.jpg" alt="자신의 사진" class="my-photo-box">
+
+                <!-- 지시사항: 공백 제외 220자 이상 직접 작성 구역 -->
+                <div class="intro-area">
+                    <p><b>[여기에 본인의 자기소개 내용을 작성하세요]</b><br>(이 영역의 글자 수가 공백을 제외하고 총 220자 이상이 되도록 본인의 소개글을 길게 채워주셔야 감점되지 않습니다.)</p>
+                </div>
+            </div>
+
+            <div class="career-area">
+                <h4 style="margin: 0 0 10px 0;">경력사항</h4>
+                <!-- 지시사항: 순서 없는 리스트 구현 -->
+                <ul style="margin: 0; padding-left: 20px;">
+                    <li>[여기에 경력사항 1라인 작성]</li>
+                    <li>[여기에 경력사항 2라인 작성]</li>
+                    <li>[여기에 경력사항 3라인 작성]</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            COPY GSM OOO
+        </footer>
+    </div>
+
+
+    <!-- =================================================================
+         [2페이지] 프로젝트 목록 구역 (id="project-page")
+         ================================================================= -->
+    <div id="project-page" class="page-container">
+        <header>
+            <ul class="menu-bar">
+                <div class="logo">LOGO</div>
+                <li><a href="#main-page">메인 페이지</a></li>
+                <li><a href="#project-page">프로젝트 목록</a></li>
+                <li><a href="#tech-page">기술 목록</a></li>
+            </ul>
+        </header>
+
+        <section>
+            <h2 class="page-name-title">현재 페이지: 프로젝트 목록</h2>
+
+            <!-- 지시사항: 최소 2개 이상 배치 (첫 번째 프로젝트) -->
+            <div class="project-item">
+                <h3>프로젝트 1 제목: [여기에 첫 번째 프로젝트 이름을 적으세요]</h3>
+                
+                <div class="project-capture">
+                    [ 여기에 프로젝트 1 실행 화면 캡처 이미지를 넣으세요 ]
+                </div>
+
+                <!-- 지시사항: 공백 제외 100자 이상 직접 작성 구역 -->
+                <p><b>프로젝트 설명:</b> [여기에 프로젝트 설명을 적으세요. 글자 수가 공백을 제외하고 총 100자 이상이어야 합니다.]</p>
+            </div>
+
+            <!-- 지시사항: 최소 2개 이상 배치 (두 번째 프로젝트) -->
+            <div class="project-item">
+                <h3>프로젝트 2 제목: [여기에 두 번째 프로젝트 이름을 적으세요]</h3>
+                
+                <div class="project-capture">
+                    [ 여기에 프로젝트 2 실행 화면 캡처 이미지를 넣으세요 ]
+                </div>
+
+                <!-- 지시사항: 공백 제외 100자 이상 직접 작성 구역 -->
+                <p><b>프로젝트 설명:</b> [여기에 두 번째 프로젝트 설명을 적으세요. 글자 수가 공백을 제외하고 총 100자 이상이어야 합니다.]</p>
+            </div>
+        </section>
+
+        <footer>
+            COPY GSM OOO
+        </footer>
+    </div>
+
+
+    <!-- =================================================================
+         [3페이지] 기술 목록 구역 (id="tech-page")
+         ================================================================= -->
+    <div id="tech-page" class="page-container">
+        <header>
+            <ul class="menu-bar">
+                <div class="logo">LOGO</div>
+                <li><a href="#main-page">메인 페이지</a></li>
+                <li><a href="#project-page">프로젝트 목록</a></li>
+                <li><a href="#tech-page">기술 목록</a></li>
+            </ul>
+        </header>
+
+        <section>
+            <h2 class="page-name-title">현재 페이지: 기술 목록</h2>
+
+            <!-- [조건 반영] <span> 태그를 쓰고 글자색이 파란색->초록색->빨간색으로 무한 반복 실행됨 -->
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">[여기에 기술 이름을 적으세요. 이 글자는 자동으로 파/초/빨 색상이 변합니다]</span></p>
+
+            <!-- 지시사항: 기술 설명은 공백 제외 100자 이상 기술할 것 -->
+            <div class="tech-desc-box">
+                <p><b>기술 설명:</b> [여기에 보유 기술에 대한 상세한 설명을 적으세요. 글자 수가 공백을 제외하고 총 100자 이상이 되도록 내용을 채워주셔야 감점되지 않습니다.]</p>
+            </div>
+        </section>
+
+        <footer>
+            COPY GSM OOO
+        </footer>
+    </div>
+
+</body>
+</html>
