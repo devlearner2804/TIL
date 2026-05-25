@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <title>웹 페이지 만들기 수행평가</title>
 <style>
-    /* 화면 부드럽게 스크롤 이동 */
     html {
         scroll-behavior: smooth;
     }
 
-    /* 전체 배경은 흰색, 글자는 검은색 기본 깔끔한 설정 */
     body {
         background-color: white;
         font-family: "맑은 고딕", sans-serif;
@@ -17,8 +15,8 @@
         padding: 0;
     }
 
-    /* 각 페이지 구역 스타일 (가로 850px 인쇄 규격 설정) */
     .page-container {
+        display: none;
         width: 850px;
         margin: 30px auto;
         padding: 20px;
@@ -26,20 +24,22 @@
         box-sizing: border-box;
     }
 
-    /* =================================================================
-       [조건 반영] HEADER 영역 (흰색/검정색 금지 -> 차분한 회색 임의 지정)
-       ================================================================= */
+    .page-container.active {
+        display: block;
+    }
+
     header {
-        background-color: #555555; /* 감점 피하기 위한 임의 배경색 (짙은 회색) */
+        background-color: #555555;
         padding: 15px;
         margin-bottom: 20px;
     }
 
     .menu-bar {
-        list-style: none; /* 리스트 구현 */
+        list-style: none;
         padding: 0;
         margin: 0;
         display: flex;
+        align-items: center;
     }
 
     .menu-bar .logo {
@@ -54,45 +54,54 @@
     }
 
     .menu-bar a {
-        background-color: #666666; /* 메뉴 버튼 배경색 */
-        color: #eeeeee; /* 메뉴 글자색 */
+        background-color: #666666;
+        color: #eeeeee;
         text-decoration: none;
         padding: 6px 12px;
         font-weight: bold;
         transition: 0.2s;
+        cursor: pointer;
     }
 
-    /* [조건 반영] 마우스 오버 시 메뉴 색상 변경 */
     .menu-bar a:hover {
-        background-color: #888888; 
-        color: white; 
+        background-color: #888888;
+        color: white;
     }
 
-    /* =================================================================
-       1페이지 [메인 페이지] 스타일
-       ================================================================= */
+    /* ===== 1페이지 ===== */
     .top-box {
         display: flex;
         gap: 15px;
         margin-bottom: 15px;
     }
 
-    /* [조건 반영] 이미지 자체에 5px 이상 테두리, 3px 3px 이상 그림자, CSS3 박스모델 직접 적용 */
     .my-photo-box {
-        width: 140px;                 /* 가로 크기 지정 */
-        height: 180px;                /* 세로 크기 지정 */
-        border: 5px solid black;      /* [조건] 5px 이상의 테두리 */
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4); /* [조건] 3px, 3px 이상의 그림자 */
-        box-sizing: border-box;       /* [조건] CSS3의 box 모델 적용 */
-        object-fit: cover;            /* 사진 비율 깨짐 방지 */
+        width: 140px;
+        height: 180px;
+        border: 5px solid black;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+        box-sizing: border-box;
+        background-color: #cccccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+        color: #555;
+        text-align: center;
+        flex-shrink: 0;
     }
 
-    /* 그림판 문서 형태와 동일한 검은색 1px 테두리 기본 상자들 */
     .intro-area, .career-area, .tech-desc-box {
         border: 1px solid black;
         padding: 15px;
         box-sizing: border-box;
         margin-bottom: 15px;
+        flex: 1;
+    }
+
+    .career-area {
+        flex: none;
+        width: 100%;
     }
 
     .page-name-title {
@@ -103,9 +112,7 @@
         padding-bottom: 5px;
     }
 
-    /* =================================================================
-       2페이지 [프로젝트 목록] 스타일
-       ================================================================= */
+    /* ===== 2페이지 ===== */
     .project-item {
         border: 1px solid black;
         padding: 15px;
@@ -113,15 +120,13 @@
         box-sizing: border-box;
     }
 
-    /* [조건 반영] 프로젝트 이름은 <h3> 태그를 쓰고 글자색 임의 지정 (짙은 회색) */
     .project-item h3 {
         margin-top: 0;
         margin-bottom: 10px;
-        color: #444444; /* 검은색 감점을 피하기 위한 임의 색상 */
+        color: #444444;
         font-size: 18px;
     }
 
-    /* [조건 반영] 프로젝트 실행 화면 캡처 박스 공간 */
     .project-capture {
         width: 100%;
         height: 200px;
@@ -133,17 +138,14 @@
         font-size: 14px;
         color: #555;
         margin-bottom: 15px;
+        box-sizing: border-box;
     }
 
-    /* =================================================================
-       3페이지 [기술 목록] 스타일 및 필수 애니메이션 효과
-       ================================================================= */
-    
-    /* [조건 반영] 글자색이 파란색 -> 초록색 -> 빨간색으로 계속 변하는 애니메이션 */
+    /* ===== 3페이지 애니메이션 ===== */
     @keyframes tech-color-change {
-        0% { color: blue; }
-        33% { color: green; }
-        66% { color: red; }
+        0%   { color: blue; }
+        33%  { color: green; }
+        66%  { color: red; }
         100% { color: blue; }
     }
 
@@ -153,12 +155,21 @@
         font-size: 18px;
     }
 
-    /* =================================================================
-       [조건 반영] FOOTER 영역 (흰색/검정색 감점 방지용 -> 회청색 임의 지정)
-       ================================================================= */
+    .tech-item {
+        border: 1px solid black;
+        padding: 15px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .tech-desc-box {
+        margin-bottom: 0;
+    }
+
+    /* ===== FOOTER ===== */
     footer {
-        background-color: #475569; /* 감점 피하기 위한 임의 배경색 */
-        color: #f1f5f9; /* 임의 지정 text 색상 */
+        background-color: #475569;
+        color: #f1f5f9;
         text-align: center;
         padding: 15px;
         font-size: 14px;
@@ -168,125 +179,177 @@
 </head>
 <body>
 
-    <!-- =================================================================
-         [1페이지] 메인 페이지 구역 (id="main-page")
-         ================================================================= -->
-    <div id="main-page" class="page-container">
-        <header>
-            <ul class="menu-bar">
-                <div class="logo">LOGO</div>
-                <li><a href="#main-page">메인 페이지</a></li>
-                <li><a href="#project-page">프로젝트 목록</a></li>
-                <li><a href="#tech-page">기술 목록</a></li>
+<!-- ==================== 1페이지: 메인 ==================== -->
+<div id="main-page" class="page-container active">
+    <header>
+        <ul class="menu-bar">
+            <div class="logo">LOGO</div>
+            <li><a onclick="showPage('main-page')">메인 페이지</a></li>
+            <li><a onclick="showPage('project-page')">프로젝트 목록</a></li>
+            <li><a onclick="showPage('tech-page')">기술 목록</a></li>
+        </ul>
+    </header>
+
+    <section>
+        <h2 class="page-name-title">현재 페이지: 메인 페이지</h2>
+
+        <div class="top-box">
+            <!-- 사진 자리 (증사.jpg 대신 플레이스홀더) -->
+            <div class="my-photo-box">사진<br>자리</div>
+
+            <div class="intro-area">
+                <p>
+                    안녕하세요, 저는 광주소프트웨어마이스터고등학교 1학년에 재학 중인 학생입니다.
+                    어릴 때부터 컴퓨터와 게임에 관심이 많아 자연스럽게 프로그래밍을 접하게 되었습니다.
+                    현재는 HTML, CSS, JavaScript를 중심으로 웹 개발을 공부하고 있으며,
+                    사용자가 편리하게 이용할 수 있는 웹 서비스를 만드는 것을 목표로 하고 있습니다.
+                    앞으로는 백엔드와 데이터베이스까지 영역을 넓혀 풀스택 개발자로 성장하고 싶습니다.
+                    꾸준한 노력과 다양한 프로젝트 경험을 통해 실력을 키워나가겠습니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="career-area">
+            <h4 style="margin: 0 0 10px 0;">경력사항</h4>
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>2025년 광주소프트웨어마이스터고등학교 입학</li>
+                <li>2025년 학교 해커톤 대회 참가 (팀 프로젝트)</li>
+                <li>2026년 웹 개발 동아리 활동 중</li>
             </ul>
-        </header>
+        </div>
+    </section>
 
-        <section>
-            <h2 class="page-name-title">현재 페이지: 메인 페이지</h2>
+    <footer>
+        COPY GSM OOO
+    </footer>
+</div>
 
-            <div class="top-box">
-                <!-- [조건 만족] 증사.jpg 단독 매칭 및 테두리/그림자/박스모델 완벽 반영 -->
-                <img src="./증사.jpg" alt="자신의 사진" class="my-photo-box">
 
-                <!-- 지시사항: 공백 제외 220자 이상 직접 작성 구역 -->
-                <div class="intro-area">
-                    <p><b>[여기에 본인의 자기소개 내용을 작성하세요]</b><br>(이 영역의 글자 수가 공백을 제외하고 총 220자 이상이 되도록 본인의 소개글을 길게 채워주셔야 감점되지 않습니다.)</p>
-                </div>
+<!-- ==================== 2페이지: 프로젝트 목록 ==================== -->
+<div id="project-page" class="page-container">
+    <header>
+        <ul class="menu-bar">
+            <div class="logo">LOGO</div>
+            <li><a onclick="showPage('main-page')">메인 페이지</a></li>
+            <li><a onclick="showPage('project-page')">프로젝트 목록</a></li>
+            <li><a onclick="showPage('tech-page')">기술 목록</a></li>
+        </ul>
+    </header>
+
+    <section>
+        <h2 class="page-name-title">현재 페이지: 프로젝트 목록</h2>
+
+        <!-- 프로젝트 1 -->
+        <div class="project-item">
+            <h3>프로젝트 1 제목: 개인 포트폴리오 웹사이트</h3>
+
+            <div class="project-capture">
+                [ 프로젝트 1 실행 화면 캡처 이미지 ]
             </div>
 
-            <div class="career-area">
-                <h4 style="margin: 0 0 10px 0;">경력사항</h4>
-                <!-- 지시사항: 순서 없는 리스트 구현 -->
-                <ul style="margin: 0; padding-left: 20px;">
-                    <li>[여기에 경력사항 1라인 작성]</li>
-                    <li>[여기에 경력사항 2라인 작성]</li>
-                    <li>[여기에 경력사항 3라인 작성]</li>
-                </ul>
-            </div>
-        </section>
+            <p>
+                <b>프로젝트 설명:</b>
+                HTML과 CSS만을 사용하여 제작한 개인 포트폴리오 웹사이트입니다.
+                반응형 레이아웃을 적용하여 PC와 모바일 환경 모두에서 깔끔하게 보이도록 설계하였으며,
+                CSS 애니메이션을 활용해 시각적인 효과를 추가하였습니다.
+                자기소개, 기술 목록, 프로젝트 소개 섹션으로 구성되어 있습니다.
+            </p>
+        </div>
 
-        <footer>
-            COPY GSM OOO
-        </footer>
-    </div>
+        <!-- 프로젝트 2 -->
+        <div class="project-item">
+            <h3>프로젝트 2 제목: 웹 기반 계산기 앱</h3>
 
-
-    <!-- =================================================================
-         [2페이지] 프로젝트 목록 구역 (id="project-page")
-         ================================================================= -->
-    <div id="project-page" class="page-container">
-        <header>
-            <ul class="menu-bar">
-                <div class="logo">LOGO</div>
-                <li><a href="#main-page">메인 페이지</a></li>
-                <li><a href="#project-page">프로젝트 목록</a></li>
-                <li><a href="#tech-page">기술 목록</a></li>
-            </ul>
-        </header>
-
-        <section>
-            <h2 class="page-name-title">현재 페이지: 프로젝트 목록</h2>
-
-            <!-- 지시사항: 최소 2개 이상 배치 (첫 번째 프로젝트) -->
-            <div class="project-item">
-                <h3>프로젝트 1 제목: [여기에 첫 번째 프로젝트 이름을 적으세요]</h3>
-                
-                <div class="project-capture">
-                    [ 여기에 프로젝트 1 실행 화면 캡처 이미지를 넣으세요 ]
-                </div>
-
-                <!-- 지시사항: 공백 제외 100자 이상 직접 작성 구역 -->
-                <p><b>프로젝트 설명:</b> [여기에 프로젝트 설명을 적으세요. 글자 수가 공백을 제외하고 총 100자 이상이어야 합니다.]</p>
+            <div class="project-capture">
+                [ 프로젝트 2 실행 화면 캡처 이미지 ]
             </div>
 
-            <!-- 지시사항: 최소 2개 이상 배치 (두 번째 프로젝트) -->
-            <div class="project-item">
-                <h3>프로젝트 2 제목: [여기에 두 번째 프로젝트 이름을 적으세요]</h3>
-                
-                <div class="project-capture">
-                    [ 여기에 프로젝트 2 실행 화면 캡처 이미지를 넣으세요 ]
-                </div>
+            <p>
+                <b>프로젝트 설명:</b>
+                JavaScript의 기본 문법을 학습한 후 처음으로 만든 웹 기반 계산기 프로그램입니다.
+                덧셈, 뺄셈, 곱셈, 나눗셈 기능을 모두 지원하며 버튼 클릭 시 실시간으로 결과가 표시됩니다.
+                HTML, CSS, JavaScript를 함께 활용한 첫 번째 인터랙티브 프로젝트입니다.
+            </p>
+        </div>
+    </section>
 
-                <!-- 지시사항: 공백 제외 100자 이상 직접 작성 구역 -->
-                <p><b>프로젝트 설명:</b> [여기에 두 번째 프로젝트 설명을 적으세요. 글자 수가 공백을 제외하고 총 100자 이상이어야 합니다.]</p>
-            </div>
-        </section>
-
-        <footer>
-            COPY GSM OOO
-        </footer>
-    </div>
+    <footer>
+        COPY GSM OOO
+    </footer>
+</div>
 
 
-    <!-- =================================================================
-         [3페이지] 기술 목록 구역 (id="tech-page")
-         ================================================================= -->
-    <div id="tech-page" class="page-container">
-        <header>
-            <ul class="menu-bar">
-                <div class="logo">LOGO</div>
-                <li><a href="#main-page">메인 페이지</a></li>
-                <li><a href="#project-page">프로젝트 목록</a></li>
-                <li><a href="#tech-page">기술 목록</a></li>
-            </ul>
-        </header>
+<!-- ==================== 3페이지: 기술 목록 ==================== -->
+<div id="tech-page" class="page-container">
+    <header>
+        <ul class="menu-bar">
+            <div class="logo">LOGO</div>
+            <li><a onclick="showPage('main-page')">메인 페이지</a></li>
+            <li><a onclick="showPage('project-page')">프로젝트 목록</a></li>
+            <li><a onclick="showPage('tech-page')">기술 목록</a></li>
+        </ul>
+    </header>
 
-        <section>
-            <h2 class="page-name-title">현재 페이지: 기술 목록</h2>
+    <section>
+        <h2 class="page-name-title">현재 페이지: 기술 목록</h2>
 
-            <!-- [조건 반영] <span> 태그를 쓰고 글자색이 파란색->초록색->빨간색으로 무한 반복 실행됨 -->
-            <p>보유 전공 기술 이름: <span class="ani-tech-name">[여기에 기술 이름을 적으세요. 이 글자는 자동으로 파/초/빨 색상이 변합니다]</span></p>
-
-            <!-- 지시사항: 기술 설명은 공백 제외 100자 이상 기술할 것 -->
+        <!-- 기술 1 -->
+        <div class="tech-item">
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">HTML5</span></p>
             <div class="tech-desc-box">
-                <p><b>기술 설명:</b> [여기에 보유 기술에 대한 상세한 설명을 적으세요. 글자 수가 공백을 제외하고 총 100자 이상이 되도록 내용을 채워주셔야 감점되지 않습니다.]</p>
+                <p>
+                    <b>기술 설명:</b>
+                    HTML5는 웹 페이지의 구조와 콘텐츠를 정의하는 마크업 언어입니다.
+                    시맨틱 태그(header, section, footer 등)를 활용하면 문서의 의미를 명확하게 표현할 수 있으며,
+                    검색 엔진 최적화(SEO)에도 유리합니다. 멀티미디어 요소를 플러그인 없이 직접 삽입할 수 있는 것도 특징입니다.
+                </p>
             </div>
-        </section>
+        </div>
 
-        <footer>
-            COPY GSM OOO
-        </footer>
-    </div>
+        <!-- 기술 2 -->
+        <div class="tech-item">
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">CSS3</span></p>
+            <div class="tech-desc-box">
+                <p>
+                    <b>기술 설명:</b>
+                    CSS3는 웹 페이지의 디자인과 레이아웃을 담당하는 스타일 언어입니다.
+                    박스 모델, 그림자, 애니메이션, 트랜지션 등 다양한 시각적 효과를 구현할 수 있으며,
+                    Flexbox와 Grid를 통해 복잡한 레이아웃도 손쉽게 구성할 수 있습니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 기술 3 -->
+        <div class="tech-item">
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">JavaScript</span></p>
+            <div class="tech-desc-box">
+                <p>
+                    <b>기술 설명:</b>
+                    JavaScript는 웹 페이지에 동적인 기능을 추가하는 프로그래밍 언어입니다.
+                    버튼 클릭, 입력값 처리, 페이지 전환 등 사용자와의 상호작용을 구현할 수 있으며,
+                    현재 이 포트폴리오의 페이지 전환 기능도 JavaScript로 구현되어 있습니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        COPY GSM OOO
+    </footer>
+</div>
+
+<script>
+    function showPage(pageId) {
+        // 모든 페이지 숨기기
+        document.querySelectorAll('.page-container').forEach(function(page) {
+            page.classList.remove('active');
+        });
+        // 선택한 페이지만 보이기
+        document.getElementById(pageId).classList.add('active');
+        // 맨 위로 스크롤
+        window.scrollTo(0, 0);
+    }
+</script>
 
 </body>
 </html>
