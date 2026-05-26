@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>웹 페이지 만들기 수행평가</title>
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: white;
+        font-family: "맑은 고딕", sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-container {
+        display: none;
+        width: 850px;
+        margin: 30px auto;
+        padding: 20px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+
+    .page-container.active {
+        display: block;
+    }
+
+    header {
+        background-color: #555555;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .menu-bar {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-bar .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        margin-right: 50px;
+    }
+
+    .menu-bar li {
+        margin-right: 40px;
+    }
+
+    .menu-bar a {
+        background-color: #666666;
+        color: #eeeeee;
+        text-decoration: none;
+        padding: 6px 12px;
+        font-weight: bold;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .menu-bar a:hover {
+        background-color: #888888;
+        color: white;
+    }
+
+    
+    .top-box {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .my-photo-box {
+        width: 140px;
+        height: 180px;
+        border: 5px solid black;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+        box-sizing: border-box;
+        background-color: #cccccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+        color: #555;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .my-photo-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .intro-area, .career-area, .tech-desc-box {
+        border: 1px solid black;
+        padding: 15px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+        flex: 1;
+    }
+
+    .career-area {
+        flex: none;
+        width: 100%;
+    }
+
+    .page-name-title {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 20px;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+    }
+
+    
+    .project-item {
+        border: 1px solid black;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .project-item h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #444444;
+        font-size: 18px;
+    }
+
+    .project-capture {
+        width: 100%;
+        height: 200px;
+        border: 1px dashed #777;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    .project-capture img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    
+    @keyframes tech-color-change {
+        0%   { color: blue; }
+        33%  { color: green; }
+        66%  { color: red; }
+        100% { color: blue; }
+    }
+
+    .ani-tech-name {
+        animation: tech-color-change 4s infinite;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .tech-item {
+        border: 1px solid black;
+        padding: 15px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .tech-desc-box {
+        margin-bottom: 0;
+    }
+
+    
+    footer {
+        background-color: #475569;
+        color: #f1f5f9;
+        text-align: center;
+        padding: 15px;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+
+<div id="main-page" class="page-container active">
+    <header>
+        <ul class="menu-bar">
+            <div class="logo">LOGO</div>
+            <li><a onclick="showPage('main-page')">메인 페이지</a></li>
+            <li><a onclick="showPage('project-page')">프로젝트 목록</a></li>
+            <li><a onclick="showPage('tech-page')">기술 목록</a></li>
+        </ul>
+    </header>
+
+    <section>
+        <h2 class="page-name-title">현재 페이지: 메인 페이지</h2>
+
+        <div class="top-box">
+            
+            <div class="my-photo-box">
+                <img src="증사.jpg" alt="자기소개 사진">
+            </div>
+
+            <div class="intro-area">
+                
+                <p>
+                    안녕하세요, 저는 광주소프트웨어마이스터고등학교 1학년에 재학 중인 학생입니다.
+                    어릴 때부터 컴퓨터와 게임에 관심이 많아 자연스럽게 프로그래밍을 접하게 되었습니다.
+                    현재는 HTML, CSS, JavaScript를 중심으로 웹 개발을 공부하고 있으며,
+                    사용자가 편리하게 이용할 수 있는 웹 서비스를 만드는 것을 목표로 하고 있습니다.
+                    앞으로는 백엔드와 데이터베이스까지 영역을 넓혀 풀스택 개발자로 성장하고 싶습니다.
+                    꾸준한 노력과 다양한 프로젝트 경험을 통해 실력을 키워나가겠습니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="career-area">
+            <h4 style="margin: 0 0 10px 0;">경력사항</h4>
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>2025년 광주소프트웨어마이스터고등학교 입학</li>
+                <li>2025년 학교 해커톤 대회 참가 (팀 프로젝트)</li>
+                <li>2026년 웹 개발 동아리 활동 중</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        COPY GSM OOO
+    </footer>
+</div>
+
+
+
+<div id="project-page" class="page-container">
+    <header>
+        <ul class="menu-bar">
+            <div class="logo">LOGO</div>
+            <li><a onclick="showPage('main-page')">메인 페이지</a></li>
+            <li><a onclick="showPage('project-page')">프로젝트 목록</a></li>
+            <li><a onclick="showPage('tech-page')">기술 목록</a></li>
+        </ul>
+    </header>
+
+    <section>
+        <h2 class="page-name-title">현재 페이지: 프로젝트 목록</h2>
+
+        
+        <div class="project-item">
+            
+            <h3>프로젝트 1 제목: 개인 포트폴리오 웹사이트</h3>
+
+            <div class="project-capture">
+                
+                
+                <img class="project-image" src="./518프로젝트.png" alt="518 프로젝트 캡처 이미지">
+            </div>
+
+            
+            <p>
+                <b>프로젝트 설명:</b>
+                HTML과 CSS만을 사용하여 제작한 개인 포트폴리오 웹사이트입니다.
+                반응형 레이아웃을 적용하여 PC와 모바일 환경 모두에서 깔끔하게 보이도록 설계하였으며,
+                CSS 애니메이션을 활용해 시각적인 효과를 추가하였습니다.
+                자기소개, 기술 목록, 프로젝트 소개 섹션으로 구성되어 있습니다.
+            </p>
+        </div>
+
+        
+        <div class="project-item">
+            
+            <h3>프로젝트 2 제목: 웹 기반 계산기 앱</h3>
+
+            <div class="project-capture">
+                
+                
+                <img class="project-image" src="./CRUD게시판프로젝트.png" alt="CRUD 게시판 프로젝트 캡처 이미지">
+            </div>
+
+            
+            <p>
+                <b>프로젝트 설명:</b>
+                JavaScript의 기본 문법을 학습한 후 처음으로 만든 웹 기반 계산기 프로그램입니다.
+                덧셈, 뺄셈, 곱셈, 나눗셈 기능을 모두 지원하며 버튼 클릭 시 실시간으로 결과가 표시됩니다.
+                HTML, CSS, JavaScript를 함께 활용한 첫 번째 인터랙티브 프로젝트입니다.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        COPY GSM OOO
+    </footer>
+</div>
+
+
+
+<div id="tech-page" class="page-container">
+    <header>
+        <ul class="menu-bar">
+            <div class="logo">LOGO</div>
+            <li><a onclick="showPage('main-page')">메인 페이지</a></li>
+            <li><a onclick="showPage('project-page')">프로젝트 목록</a></li>
+            <li><a onclick="showPage('tech-page')">기술 목록</a></li>
+        </ul>
+    </header>
+
+    <section>
+        <h2 class="page-name-title">현재 페이지: 기술 목록</h2>
+
+        
+        <div class="tech-item">
+            
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">HTML5</span></p>
+            <div class="tech-desc-box">
+                
+                <p>
+                    <b>기술 설명:</b>
+                    HTML5는 웹 페이지의 구조와 콘텐츠를 정의하는 마크업 언어입니다.
+                    시맨틱 태그(header, section, footer 등)를 활용하면 문서의 의미를 명확하게 표현할 수 있으며,
+                    검색 엔진 최적화(SEO)에도 유리합니다. 멀티미디어 요소를 플러그인 없이 직접 삽입할 수 있는 것도 특징입니다.
+                </p>
+            </div>
+        </div>
+
+        
+        <div class="tech-item">
+            
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">CSS3</span></p>
+            <div class="tech-desc-box">
+                
+                <p>
+                    <b>기술 설명:</b>
+                    CSS3는 웹 페이지의 디자인과 레이아웃을 담당하는 스타일 언어입니다.
+                    박스 모델, 그림자, 애니메이션, 트랜지션 등 다양한 시각적 효과를 구현할 수 있으며,
+                    Flexbox와 Grid를 통해 복잡한 레이아웃도 손쉽게 구성할 수 있습니다.
+                </p>
+            </div>
+        </div>
+
+        
+        <div class="tech-item">
+            
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">Python</span></p>
+            <div class="tech-desc-box">
+                
+                <p>
+                    <b>기술 설명:</b>
+                    Python은 문법이 비교적 간단하고 다양한 분야에서 활용되는 프로그래밍 언어입니다.
+                    데이터 처리, 자동화, 웹 서버 개발, 인공지능 학습 등 여러 작업에 사용할 수 있으며,
+                    초보자가 프로그래밍의 기본 개념을 익히기에도 좋은 언어입니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        COPY GSM OOO
+    </footer>
+</div>
+
+<script>
+    function showPage(pageId) {
+        document.querySelectorAll('.page-container').forEach(function(page) {
+            page.classList.remove('active');
+        });
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>

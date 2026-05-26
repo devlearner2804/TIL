@@ -91,6 +91,13 @@
         flex-shrink: 0;
     }
 
+    .my-photo-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
     .intro-area, .career-area, .tech-desc-box {
         border: 1px solid black;
         padding: 15px;
@@ -139,6 +146,13 @@
         color: #555;
         margin-bottom: 15px;
         box-sizing: border-box;
+    }
+
+    .project-capture img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
     }
 
     /* ===== 3페이지 애니메이션 ===== */
@@ -194,10 +208,13 @@
         <h2 class="page-name-title">현재 페이지: 메인 페이지</h2>
 
         <div class="top-box">
-            <!-- 사진 자리 (증사.jpg 대신 플레이스홀더) -->
-            <div class="my-photo-box">사진<br>자리</div>
+            <!-- 사진 자리 -->
+            <div class="my-photo-box">
+                <img src="증사.jpg" alt="자기소개 사진">
+            </div>
 
             <div class="intro-area">
+                <!-- 자기소개 내용은 아래 p 태그 안에서 수정하면 됩니다. -->
                 <p>
                     안녕하세요, 저는 광주소프트웨어마이스터고등학교 1학년에 재학 중인 학생입니다.
                     어릴 때부터 컴퓨터와 게임에 관심이 많아 자연스럽게 프로그래밍을 접하게 되었습니다.
@@ -241,12 +258,16 @@
 
         <!-- 프로젝트 1 -->
         <div class="project-item">
+            <!-- 프로젝트 1 제목은 아래 h3 태그 안에서 수정하면 됩니다. -->
             <h3>프로젝트 1 제목: 개인 포트폴리오 웹사이트</h3>
 
             <div class="project-capture">
-                [ 프로젝트 1 실행 화면 캡처 이미지 ]
+                <!-- 프로젝트 1 캡처 이미지는 아래 img 태그의 src를 수정하면 됩니다. -->
+                <!-- 프로젝트 1 이미지 넣는 코드 -->
+                <img class="project-image" src="./518프로젝트.png" alt="518 프로젝트 캡처 이미지">
             </div>
 
+            <!-- 프로젝트 1 설명은 아래 p 태그 안에서 수정하면 됩니다. -->
             <p>
                 <b>프로젝트 설명:</b>
                 HTML과 CSS만을 사용하여 제작한 개인 포트폴리오 웹사이트입니다.
@@ -258,12 +279,16 @@
 
         <!-- 프로젝트 2 -->
         <div class="project-item">
+            <!-- 프로젝트 2 제목은 아래 h3 태그 안에서 수정하면 됩니다. -->
             <h3>프로젝트 2 제목: 웹 기반 계산기 앱</h3>
 
             <div class="project-capture">
-                [ 프로젝트 2 실행 화면 캡처 이미지 ]
+                <!-- 프로젝트 2 캡처 이미지는 아래 img 태그의 src를 수정하면 됩니다. -->
+                <!-- 프로젝트 2 이미지 넣는 코드 -->
+                <img class="project-image" src="./CRUD게시판프로젝트.png" alt="CRUD 게시판 프로젝트 캡처 이미지">
             </div>
 
+            <!-- 프로젝트 2 설명은 아래 p 태그 안에서 수정하면 됩니다. -->
             <p>
                 <b>프로젝트 설명:</b>
                 JavaScript의 기본 문법을 학습한 후 처음으로 만든 웹 기반 계산기 프로그램입니다.
@@ -295,8 +320,10 @@
 
         <!-- 기술 1 -->
         <div class="tech-item">
+            <!-- 기술 1 이름은 아래 span 태그 안에서 수정하면 됩니다. -->
             <p>보유 전공 기술 이름: <span class="ani-tech-name">HTML5</span></p>
             <div class="tech-desc-box">
+                <!-- 기술 1 설명은 아래 p 태그 안에서 수정하면 됩니다. -->
                 <p>
                     <b>기술 설명:</b>
                     HTML5는 웹 페이지의 구조와 콘텐츠를 정의하는 마크업 언어입니다.
@@ -308,8 +335,10 @@
 
         <!-- 기술 2 -->
         <div class="tech-item">
+            <!-- 기술 2 이름은 아래 span 태그 안에서 수정하면 됩니다. -->
             <p>보유 전공 기술 이름: <span class="ani-tech-name">CSS3</span></p>
             <div class="tech-desc-box">
+                <!-- 기술 2 설명은 아래 p 태그 안에서 수정하면 됩니다. -->
                 <p>
                     <b>기술 설명:</b>
                     CSS3는 웹 페이지의 디자인과 레이아웃을 담당하는 스타일 언어입니다.
@@ -321,13 +350,15 @@
 
         <!-- 기술 3 -->
         <div class="tech-item">
-            <p>보유 전공 기술 이름: <span class="ani-tech-name">JavaScript</span></p>
+            <!-- 기술 3 이름은 아래 span 태그 안에서 수정하면 됩니다. -->
+            <p>보유 전공 기술 이름: <span class="ani-tech-name">Python</span></p>
             <div class="tech-desc-box">
+                <!-- 기술 3 설명은 아래 p 태그 안에서 수정하면 됩니다. -->
                 <p>
                     <b>기술 설명:</b>
-                    JavaScript는 웹 페이지에 동적인 기능을 추가하는 프로그래밍 언어입니다.
-                    버튼 클릭, 입력값 처리, 페이지 전환 등 사용자와의 상호작용을 구현할 수 있으며,
-                    현재 이 포트폴리오의 페이지 전환 기능도 JavaScript로 구현되어 있습니다.
+                    Python은 문법이 비교적 간단하고 다양한 분야에서 활용되는 프로그래밍 언어입니다.
+                    데이터 처리, 자동화, 웹 서버 개발, 인공지능 학습 등 여러 작업에 사용할 수 있으며,
+                    초보자가 프로그래밍의 기본 개념을 익히기에도 좋은 언어입니다.
                 </p>
             </div>
         </div>
