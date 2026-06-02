@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS 선택자 예제</title>
+    <style>
+        body {
+            font-family: "맑은 고딕", Arial, sans-serif;
+            margin: 30px;
+            background: #f4f8fb;
+        }
+
+        h1 {
+            color: #12355b;
+        }
+
+        .box {
+            border: 2px solid #2f6f73;
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+
+        #important {
+            color: #b24f18;
+            font-weight: bold;
+        }
+
+        .box:hover {
+            background: #fff3d6;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS 선택자</h1>
+    <div class="box">class 선택자로 같은 스타일을 적용한 박스입니다.</div>
+    <div class="box" id="important">id 선택자로 중요한 문장만 다르게 표시했습니다.</div>
+</body>
+</html>
